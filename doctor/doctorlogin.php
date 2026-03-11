@@ -56,8 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Login">
         </form>
         <div class="links">
-            <p><a href="doctorregister.php">Register</a> | <a href="doctorforgot_password.php">Forgot Password?</a></p>
-        </div>
+            <p><a href="doctorregister.php">Register</a> 
     </div>
 </body>
 </html>

@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
         <div class="links">
             <p>Haven't registered? <a href="patientregister.php">Register here</a></p>
-            <p><a href="patientforgotpassword.php">Forgot Password?</a></p>
+            
         </div>
     </div>
 </body>

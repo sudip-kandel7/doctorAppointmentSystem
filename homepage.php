@@ -12,24 +12,27 @@
 
         /* Banner */
         .banner {
-            width: 100%;
-            height: 400px; /* Increased height for more space */
-            background: url("./images/homeimage.jpg");
-            background-position:top;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-        }
-        .banner h1 {
-            font-size: 48px;
-            margin: 0;
-        }
-        .banner p {
-            font-size: 22px;
-            margin-top: 10px;
-        }
+    width: 100%;
+    height: 400px; 
+    background: url("./images/homeimage.jpg") no-repeat center center;
+    background-size: cover; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+.banner p {
+    font-size: 22px;
+    margin-top: 10px;
+}
 
         /* Header Section */
         .header {
