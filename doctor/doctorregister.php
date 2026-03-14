@@ -9,6 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $specialization = trim($_POST['specialization']);
     $otherSpec      = trim($_POST['other_specialization']);
     $experience     = intval($_POST['experience']);
+    $available_from = $_POST['available_from'];
+    $available_to = $_POST['available_to'];
+
+    $days = "";
+        if (isset($_POST['available_days'])) {
+            $days = implode(",", $_POST['available_days']);
+        }
 
     if (!empty($otherSpec)) {
         $specialization = $otherSpec;
@@ -31,8 +38,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (in_array($fileType, $allowedTypes)) {
             if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $targetFilePath)) {
-                $stmt = $mysqli->prepare("INSERT INTO doctor (name, email, password, specialization, profile_pic, experience) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("sssssi", $name, $email, $hashedPassword, $specialization, $targetFilePath, $experience);
+               $stmt = $mysqli->prepare("INSERT INTO doctor 
+    (name, email, password, specialization, profile_pic, experience, available_from, available_to, available_days) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+$stmt->bind_param(
+'sssssisss',
+$name,
+$email,
+$hashedPassword,
+$specialization,
+$targetFilePath,
+$experience,
+$available_from,
+$available_to,
+$days
+);
 
                 if ($stmt->execute()) {
                     $_SESSION['doctor_id'] = $stmt->insert_id;
@@ -75,6 +96,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .login-link { text-align: center; margin-top: 20px; }
         .login-link a { color: #3498db; text-decoration: none; font-weight: bold; }
         .login-link a:hover { text-decoration: underline; }
+
+          .days {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 6px;
+        margin-bottom: 10px;
+    }
+
+    .days input[type="checkbox"] {
+        display: none;
+    }
+
+    .days label {
+        font-weight: normal;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 12px;
+        margin: 0;
+        background: #f9f9f9;
+        color: #444;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .days input[type="checkbox"]:checked+label {
+        background: #27ae60;
+        color: white;
+        border-color: #27ae60;
+    }
+
+    .days label:hover {
+        border-color: #27ae60;
+        color: #27ae60;
+    }
     </style>
 </head>
 <body>
@@ -125,6 +186,36 @@ function togglePassword() {
 
             <label>Add Profile Picture</label>
             <input type="file" name="profile_pic" accept="image/*" required>
+
+             <label>Available From</label>
+                <input type="time" name="available_from">
+
+                <label>Available To</label>
+                <input type="time" name="available_to">
+
+                <label>Available Days</label>
+
+                <div class="days">
+                    <input type="checkbox" name="available_days[]" value="Sunday" id="day_sun">
+                    <label for="day_sun">Sun</label>
+
+                    <input type="checkbox" name="available_days[]" value="Monday" id="day_mon">
+                    <label for="day_mon">Mon</label>
+
+                    <input type="checkbox" name="available_days[]" value="Tuesday" id="day_tue">
+                    <label for="day_tue">Tue</label>
+
+                    <input type="checkbox" name="available_days[]" value="Wednesday" id="day_wed">
+                    <label for="day_wed">Wed</label>
+                    <input type="checkbox" name="available_days[]" value="Thursday" id="day_thu">
+                    <label for="day_thu">Thu</label>
+
+                    <input type="checkbox" name="available_days[]" value="Friday" id="day_fri">
+                    <label for="day_fri">Fri</label>
+
+                    <input type="checkbox" name="available_days[]" value="Saturday" id="day_sat">
+                    <label for="day_sat">Sat</label>
+                </div>
 
             <input type="submit" value="Register">
         </form>

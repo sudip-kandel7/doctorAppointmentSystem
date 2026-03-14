@@ -83,7 +83,14 @@ $stmt->close();
         <p><strong>Specialization:</strong> <?= htmlspecialchars($doctor['specialization']) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($doctor['email']) ?></p>
         <p><strong>Experience:</strong> <?= htmlspecialchars($doctor['experience']) ?> years</p>
-        <p><strong>Available Days:</strong> <?= htmlspecialchars($doctor['available_days']) ?></p>
+         <p><strong>Available Days:</strong>
+<?php
+$daysArray = explode(",", $doctor['available_days']);
+foreach($daysArray as $day){
+    echo "<span style='background:#27ae60;color:white;padding:4px 8px;border-radius:5px;margin-right:5px;'>$day</span>";
+}
+?>
+</p>
         <p><strong>Available Time:</strong> <?= htmlspecialchars($doctor['available_from']) ?> - <?= htmlspecialchars($doctor['available_to']) ?></p>
     </div>
 
